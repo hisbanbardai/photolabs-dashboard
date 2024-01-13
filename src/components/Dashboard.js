@@ -39,6 +39,23 @@ class Dashboard extends Component {
     }));
   }
 
+  componentDidMount() {
+    console.log("didMount");
+    const focused = JSON.parse(localStorage.getItem("focused"));
+    console.log(focused);
+
+    if (focused) {
+      this.setState({ focused });
+    }
+  }
+
+  componentDidUpdate(previousProps, previousState) {
+    console.log("didUpdate");
+    if (previousState.focused !== this.state.focused) {
+      localStorage.setItem("focused", JSON.stringify(this.state.focused));
+    }
+  }
+
   render() {
     const dashboardClasses = classnames("dashboard", {
       "dashboard--focused": this.state.focused,
